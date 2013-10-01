@@ -22,9 +22,15 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (require 'term)
+(eval-when-compile (require 'cl))
 
 (defvar sbtp-prompt-string "> ")
-(defvar sbtp-prompt-string-end sbtp-prompt-string)
+(defvar sbtp-prompt-string-end
+  (let ((l   (loop for c in (split-string sbtp-prompt-string " ")
+                   if (string< "" c)
+                   collect c)))
+    (nth (1- (length l)) l)))
+
 (defvar sbtp-bol-string "\C-a"
   "Variable to pass to term-send-raw-string")
 
@@ -33,7 +39,7 @@
   (term-send-raw-string sbtp-bol-string)
   (when (sbtp-sbt-prompt-p)
     (goto-char (point-at-bol))
-    (search-forward sbtp-prompt-string-end)))
+    (search-forward (concat sbtp-prompt-string-end " "))))
 
 (defun sbtp-sbt-prompt-p ()
   (save-excursion
