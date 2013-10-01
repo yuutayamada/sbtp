@@ -26,7 +26,7 @@
 (defvar sbtp-prompt-string "> ")
 (defvar sbtp-prompt-string-end sbtp-prompt-string)
 
-(defun sbtp-C-a ()
+(defun sbtp-begging-of-line ()
   (interactive)
   (term-send-raw-string "\C-a")
   (when (sbtp-sbt-prompt-p)
