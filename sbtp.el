@@ -25,10 +25,12 @@
 
 (defvar sbtp-prompt-string "> ")
 (defvar sbtp-prompt-string-end sbtp-prompt-string)
+(defvar sbtp-bol-string "\C-a"
+  "Variable to pass to term-send-raw-string")
 
 (defun sbtp-begging-of-line ()
   (interactive)
-  (term-send-raw-string "\C-a")
+  (term-send-raw-string sbtp-bol-string)
   (when (sbtp-sbt-prompt-p)
     (goto-char (point-at-bol))
     (search-forward sbtp-prompt-string-end)))
