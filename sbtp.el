@@ -21,6 +21,17 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Usage:
+;; (require 'sbtp)
+;; (setq sbtp-prompt-string "> ")
+;; (define-key term-raw-map (kbd "C-a") sbtp-begging-of-line)
+
+;; If you are not Emacs user, and you don't want to use C-a keybind to
+;; move begging of line. You can change the keybind. For example:
+;; (setq sbtp-bol-string "\C-b")
+;; Note that this variable must set "\KEY" form to pass to term-raw-send-string.
+;; (Can't use (kbd "C-a") form)
+
 (require 'term)
 (eval-when-compile (require 'cl))
 
