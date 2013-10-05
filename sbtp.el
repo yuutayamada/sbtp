@@ -104,7 +104,7 @@
               (car kill-ring)))
            (formatted-string
             (if current-prefix-arg
-                (concat ":reset\n" string)
+                (concat "\n\n:reset\n" string)
               string)))
       (pop-to-buffer (get-buffer sbtp-console-buffer))
       (switch-to-buffer sbtp-console-buffer)
@@ -115,7 +115,7 @@
 
 (defun sbtp-console-reset ()
   (interactive)
-  (sbtp-console-send ":reset"))
+  (sbtp-console-send "\n\n:reset"))
 
 (defun sbtp-console-send-line ()
   (interactive)
