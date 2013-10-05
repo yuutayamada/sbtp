@@ -118,9 +118,9 @@
            (string
             (if (not (region-active-p))
                 (or str (read-string "sbtp-console: "
-                                     (thing-at-point 'word)))
-              (copy-region-as-kill (region-beginning) (region-end))
-              (car kill-ring)))
+                                        (thing-at-point 'word)))
+                 (copy-region-as-kill (region-beginning) (region-end))
+                 (car kill-ring)))
            (formatted-string
             (if current-prefix-arg
                 (concat "\n\n:reset\n" string)
