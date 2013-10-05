@@ -88,6 +88,27 @@
 (defun sbtp-console-live-p ()
   (if (process-live-p (get-buffer sbtp-console-buffer)) t nil))
 
+(defun sbtp-console-send (&optional str)
+  (interactive)
+  (if (not (sbtp-console-live-p))
+      (sbtp-start-console)
+    (let* ((original-buffer (current-buffer))
+           (string
+            (if (not (region-active-p))
+                (or str (read-string "sbtp-console: "
+                                     (thing-at-point 'word)))
+              (copy-region-as-kill (region-beginning) (region-end))
+              (car kill-ring)))
+           (formatted-string
+            (if current-prefix-arg
+                (concat ":reset\n" string)
+              string)))
+      (switch-to-buffer sbtp-console-buffer)
+      (erase-buffer)
+      (process-send-string sbtp-console-buffer
+                           (format "%s\n" formatted-string))
+      (switch-to-buffer original-buffer))))
+
 (provide 'sbtp)
 
 ;; Local Variables:
