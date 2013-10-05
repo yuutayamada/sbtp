@@ -118,6 +118,11 @@
   (sbtp-console-send (replace-regexp-in-string
                       "\n$" "" (thing-at-point 'line))))
 
+(defun sbtp-console-send-current-page ()
+  (interactive)
+  (sbtp-console-send (replace-regexp-in-string
+                      "\n$" "" (buffer-string))))
+
 (provide 'sbtp)
 
 ;; Local Variables:
