@@ -109,6 +109,10 @@
                            (format "%s\n" formatted-string))
       (switch-to-buffer original-buffer))))
 
+(defun sbtp-console-reset ()
+  (interactive)
+  (sbtp-console-send ":reset"))
+
 (provide 'sbtp)
 
 ;; Local Variables:
