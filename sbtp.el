@@ -79,6 +79,7 @@
       (minibuffer-message "sbtp-console is already started")
     (if (not (equal 'scala-mode major-mode))
         (minibuffer-message "This buffer is not scala-mode")
+      (sbtp-console-popup-buffer)
       (minibuffer-message "booting sbt console ... Please wait a sec")
       (start-process "emacs-sbtp-terminal"
                      (get-buffer-create sbtp-console-buffer) "/bin/sh" "-c"
@@ -91,12 +92,19 @@
       (process-live-p (get-buffer-create sbtp-console-buffer))
     (error nil)))
 
+(defun sbtp-console-popup-buffer (&rest body)
+  (let ((original-buffer (current-buffer)))
+    (pop-to-buffer (get-buffer sbtp-console-buffer))
+    (switch-to-buffer sbtp-console-buffer)
+    (erase-buffer)
+    (when body (eval `(progn ,@body)))
+    (switch-to-buffer-other-window original-buffer)))
+
 (defun sbtp-console-send (&optional str)
   (interactive)
   (if (not (sbtp-console-live-p))
       (sbtp-start-console)
-    (let* ((original-buffer (current-buffer))
-           (string
+    (let* ((string
             (if (not (region-active-p))
                 (or str (read-string "sbtp-console: "
                                      (thing-at-point 'word)))
@@ -106,12 +114,9 @@
             (if current-prefix-arg
                 (concat "\n\n:reset\n" string)
               string)))
-      (pop-to-buffer (get-buffer sbtp-console-buffer))
-      (switch-to-buffer sbtp-console-buffer)
-      (erase-buffer)
-      (process-send-string sbtp-console-buffer
-                           (format "%s\n" formatted-string))
-      (switch-to-buffer-other-window original-buffer))))
+      (sbtp-console-popup-buffer
+       (process-send-string sbtp-console-buffer
+                            (format "%s\n" formatted-string))))))
 
 (defun sbtp-console-reset ()
   (interactive)
