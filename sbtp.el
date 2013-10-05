@@ -43,10 +43,10 @@
  set this variable ja_JP.UTF-8.")
 
 (defvar sbtp-prompt-string-end
-  (let ((l   (loop for c in (split-string sbtp-prompt-string " ")
-                   if (string< "" c)
-                   collect c)))
-    (nth (1- (length l)) l)))
+  (let ((without-space   (loop for c in (split-string sbtp-prompt-string " ")
+                               if (string< "" c)
+                               collect c)))
+    (nth (1- (length without-space)) without-space)))
 
 (defvar sbtp-bol-string "\C-a"
   "Variable to pass to term-send-raw-string")
