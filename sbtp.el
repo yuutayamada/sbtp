@@ -85,6 +85,9 @@
       (minibuffer-message "sbtp-console is ready!")
       (setq sbtp-console t))))
 
+(defun sbtp-console-live-p ()
+  (if (process-live-p (get-buffer sbtp-console-buffer)) t nil))
+
 (provide 'sbtp)
 
 ;; Local Variables:
