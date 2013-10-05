@@ -1,4 +1,4 @@
-;;; sbtp.el ---
+;;; sbtp.el --- Manipulate scala console from Emacs
 
 ;; Copyright (C) 2013 by Yuta Yamada
 
@@ -21,9 +21,15 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Usage:
+;;; Configuration:
+;; Write below configurations to your .emacs.(Modify keybinds)
 ;; (require 'sbtp)
-;; (setq sbtp-prompt-string "> ")
+;; (setq sbtp-prompt-string "> "
+;;       sbtp-lang "ja_JP.UTF-8") ; if you are Japanese, set this to see 日本語
+;; (define-key scala-mode-map (kbd "C-c C-p") 'sbtp-console-send)
+;; (define-key scala-mode-map (kbd "C-c C-l") 'sbtp-console-send-line)
+;; (define-key scala-mode-map (kbd "C-c C-a") 'sbtp-console-send-current-page))
+;; To use sbt at term
 ;; (define-key term-raw-map (kbd "C-a") sbtp-begging-of-line)
 
 ;; If you are not Emacs user, and you don't want to use C-a keybind to
