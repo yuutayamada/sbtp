@@ -114,7 +114,8 @@
   (interactive)
   (if (not (sbtp-console-live-p))
       (sbtp-start-console)
-    (let* ((string
+    (let* ((kill-whole-line nil)
+           (string
             (if (not (region-active-p))
                 (or str (read-string "sbtp-console: "
                                      (thing-at-point 'word)))
