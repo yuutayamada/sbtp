@@ -35,6 +35,7 @@
 (require 'term)
 (eval-when-compile (require 'cl))
 (require 'thingatpt)
+(require 'ensime)
 
 (defvar sbtp-prompt-string "> ")
 (defvar sbtp-lang (shell-command-to-string "echo -n $LANG")
@@ -87,7 +88,10 @@
       (minibuffer-message "booting sbt console ... Please wait a sec")
       (start-process "emacs-sbtp-terminal"
                      (get-buffer-create sbtp-console-buffer) "/bin/sh" "-c"
-                     (format "cd %s && LANG=%s sbt console" default-directory
+                     (format "cd %s && LANG=%s sbt console"
+                             (condition-case error
+                                 (ensime-sbt-find-path-to-project)
+                               (error default-directory))
                              sbtp-lang))
       (minibuffer-message "sbtp-console is ready!")
       (setq sbtp-console t))))
