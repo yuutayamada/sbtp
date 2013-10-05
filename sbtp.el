@@ -69,6 +69,22 @@
   ad-do-it
   (sbtp-term-send-backspace))
 
+(defvar sbtp-console-buffer "*sbtp-console*")
+(defvar sbtp-console nil)
+
+(defun sbtp-start-console ()
+  (interactive)
+  (if (sbtp-console-live-p)
+      (minibuffer-message "sbtp-console is already started")
+    (if (not (equal 'scala-mode major-mode))
+        (minibuffer-message "This buffer is not scala-mode")
+      (minibuffer-message "booting sbt console ... Please wait a sec")
+      (start-process "emacs-sbtp-terminal"
+                     (get-buffer-create sbtp-console-buffer) "/bin/sh" "-c"
+                     (format "cd %s && sbt console" default-directory))
+      (minibuffer-message "sbtp-console is ready!")
+      (setq sbtp-console t))))
+
 (provide 'sbtp)
 
 ;; Local Variables:
