@@ -113,6 +113,11 @@
   (interactive)
   (sbtp-console-send ":reset"))
 
+(defun sbtp-console-send-line ()
+  (interactive)
+  (sbtp-console-send (replace-regexp-in-string
+                      "\n$" "" (thing-at-point 'line))))
+
 (provide 'sbtp)
 
 ;; Local Variables:
