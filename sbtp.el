@@ -34,6 +34,7 @@
 
 (require 'term)
 (eval-when-compile (require 'cl))
+(require 'thingatpt)
 
 (defvar sbtp-prompt-string "> ")
 (defvar sbtp-prompt-string-end
