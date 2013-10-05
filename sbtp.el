@@ -124,8 +124,15 @@
 
 (defun sbtp-console-send-line ()
   (interactive)
-  (sbtp-console-send (replace-regexp-in-string
-                      "\n$" "" (thing-at-point 'line))))
+  (let* ((line (thing-at-point 'line))
+         (chomp
+          (lambda (str)
+            (replace-regexp-in-string "\n$" "" str)))
+         (delete-space
+          (lambda (str)
+            (replace-regexp-in-string "^ *" "" str))))
+    (sbtp-console-send
+     (funcall chomp (funcall delete-space line)))))
 
 (defun sbtp-console-send-current-page ()
   (interactive)
