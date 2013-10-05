@@ -87,7 +87,9 @@
       (setq sbtp-console t))))
 
 (defun sbtp-console-live-p ()
-  (if (process-live-p (get-buffer sbtp-console-buffer)) t nil))
+  (condition-case error
+      (process-live-p (get-buffer-create sbtp-console-buffer))
+    (error nil)))
 
 (defun sbtp-console-send (&optional str)
   (interactive)
