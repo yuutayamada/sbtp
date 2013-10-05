@@ -106,11 +106,12 @@
             (if current-prefix-arg
                 (concat ":reset\n" string)
               string)))
+      (pop-to-buffer (get-buffer sbtp-console-buffer))
       (switch-to-buffer sbtp-console-buffer)
       (erase-buffer)
       (process-send-string sbtp-console-buffer
                            (format "%s\n" formatted-string))
-      (switch-to-buffer original-buffer))))
+      (switch-to-buffer-other-window original-buffer))))
 
 (defun sbtp-console-reset ()
   (interactive)
