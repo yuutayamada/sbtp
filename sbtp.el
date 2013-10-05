@@ -37,6 +37,10 @@
 (require 'thingatpt)
 
 (defvar sbtp-prompt-string "> ")
+(defvar sbtp-lang (shell-command-to-string "echo -n $LANG")
+  "default is LANG environment variable if you want to use Japanese language
+ set this variable ja_JP.UTF-8.")
+
 (defvar sbtp-prompt-string-end
   (let ((l   (loop for c in (split-string sbtp-prompt-string " ")
                    if (string< "" c)
@@ -83,7 +87,8 @@
       (minibuffer-message "booting sbt console ... Please wait a sec")
       (start-process "emacs-sbtp-terminal"
                      (get-buffer-create sbtp-console-buffer) "/bin/sh" "-c"
-                     (format "cd %s && sbt console" default-directory))
+                     (format "cd %s && LANG=%s sbt console" default-directory
+                             sbtp-lang))
       (minibuffer-message "sbtp-console is ready!")
       (setq sbtp-console t))))
 
