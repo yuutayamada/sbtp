@@ -55,7 +55,8 @@
 (defun sbtp-sbt-prompt-p ()
   (save-excursion
     (goto-char (point-at-bol))
-    (if (looking-at sbtp-prompt-string) t nil)))
+    (if (or (looking-at sbtp-prompt-string)
+            (looking-at (format "scala%s" sbtp-prompt-string)))  t nil)))
 
 (defun sbtp-term-send-backspace ()
   (interactive)
