@@ -96,7 +96,7 @@
   (let ((original-buffer (current-buffer)))
     (pop-to-buffer (get-buffer sbtp-console-buffer))
     (switch-to-buffer sbtp-console-buffer)
-    (erase-buffer)
+    (when current-prefix-arg (erase-buffer))
     (when body (eval `(progn ,@body)))
     (switch-to-buffer-other-window original-buffer)))
 
