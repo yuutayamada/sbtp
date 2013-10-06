@@ -99,7 +99,6 @@
                                  (ensime-sbt-find-path-to-project)
                                (error default-directory))
                              sbtp-lang))
-      (minibuffer-message "sbtp-console is ready!")
       (setq sbtp-console t))))
 
 (defun sbtp-console-live-p ()
