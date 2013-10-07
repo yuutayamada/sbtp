@@ -157,6 +157,13 @@
   (sbtp-console-send (replace-regexp-in-string
                       "\n$" "" (buffer-string))))
 
+(defun sbtp-console-kill ()
+  (when (sbtp-console-live-p)
+    (kill-process (get-buffer sbtp-console-buffer))))
+
+;; Kill sbtp-console-process if it was exist when quit.
+(add-hook 'kill-emacs-hook 'sbtp-console-kill)
+
 (provide 'sbtp)
 
 ;; Local Variables:
