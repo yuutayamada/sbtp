@@ -158,6 +158,7 @@
                       "\n$" "" (buffer-string))))
 
 (defun sbtp-console-kill ()
+  (interactive)
   (when (sbtp-console-live-p)
     (kill-process (get-buffer sbtp-console-buffer))))
 
