@@ -112,6 +112,7 @@
     (switch-to-buffer sbtp-console-buffer)
     (when current-prefix-arg (erase-buffer))
     (when body (eval `(progn ,@body)))
+    (recenter -1)
     (goto-char (point-max))
     (switch-to-buffer-other-window original-buffer)))
 
